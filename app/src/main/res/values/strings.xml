@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyWeatherApplication</string>
+    <string name="common_unknown">Неизвестно</string>
+    <string name="common_search">Поиск</string>
+
+    <string name="temperature_in_celsius">%s°</string>
+    <string name="weather_forecast">Прогноз на 5 дней</string>
+    <string name="weather_description_with_min_and_max_temperature">%s %s° / %s°</string>
+    <string name="min_and_max_temperature">%s°/%s°</string>
 </resources>

@@ -19,8 +19,13 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
 class ApiClientImpl(
-	private val baseUrl: String
+	private val baseUrl: String,
+	private val apiKey: String
 ) : ApiClient {
+
+	companion object {
+		const val API_KEY_FIELD = "appid"
+	}
 
 	private val client = HttpClient {
 		install(ContentNegotiation) {
@@ -76,15 +81,20 @@ class ApiClientImpl(
 		headers: Map<String, String>? = null,
 		typeInfo: TypeInfo
 	): T = withContext(Dispatchers.IO) {
+		val updatedQueryParams = queryParams?.toMutableMap() ?: mutableMapOf()
+
+		updatedQueryParams[API_KEY_FIELD] = apiKey
+
 		val response: HttpResponse = client.request(endpoint) {
 			this.method = method
-			queryParams?.forEach { parameter(it.key, it.value) }
+			updatedQueryParams.forEach { parameter(it.key, it.value) }
 			headers?.forEach { header(it.key, it.value) }
 			body?.let {
 				contentType(ContentType.Application.Json)
 				setBody(it)
 			}
 		}
+
 		if (response.status == HttpStatusCode.OK) {
 			response.body(typeInfo) as T
 		} else {

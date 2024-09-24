@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import cafe.adriel.voyager.navigator.Navigator
 import com.testtask.myweatherapplication.presentation.screens.main.MainScreen
+import com.testtask.myweatherapplication.presentation.screens.weather.WeatherScreen
 import com.testtask.myweatherapplication.ui.theme.MyWeatherApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
 		enableEdgeToEdge()
 		setContent {
 			MyWeatherApplicationTheme {
-				Navigator(MainScreen())
+				Navigator(WeatherScreen())
 			}
 		}
 	}
